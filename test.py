@@ -1,10 +1,16 @@
 import pygame
+import math
+
 pygame.init()
 layar = pygame.display.set_mode((600, 300))
 pygame.display.set_caption("Tester Pygame")
+
+skor = 0
+bullet = []
+
 player = pygame.image.load("orang.png")
-peluru = pygame.image.load("peluru.png")
-peluru = pygame.transform.scale(peluru, (30,30))
+peluruGambar = pygame.image.load("peluru.png")
+peluru = pygame.transform.scale(peluruGambar, (30,30))
 koorPlayer = [100,75]
 koorPeluru = [200, 75]
 running = True
@@ -27,7 +33,11 @@ while running:
             running = False
             
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
+            # Tembak
+            if event.key == pygame.K_SPACE:
+                print("tembak")
+            # gerak
+            elif event.key == pygame.K_ESCAPE:
                 running = False
             elif event.key == pygame.K_UP or event.key == pygame.K_w:
                 gerak['atas'] = True
@@ -39,7 +49,9 @@ while running:
                 gerak['kiri'] = True
         
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_UP or event.key == pygame.K_w:
+            if event.key == pygame.K_SPACE:
+                print("tembak")
+            elif event.key == pygame.K_UP or event.key == pygame.K_w:
                 gerak['atas'] = False
             elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 gerak['bawah'] = False
