@@ -1,6 +1,6 @@
 import pygame
-import math
 
+pygame.init()
 from pygame.locals import *
 from random import randint
 
@@ -21,6 +21,7 @@ player = playerNormal
 gambarMusuh = pygame.image.load("musuh.png")
 peluruGambar = pygame.image.load("peluru.png")
 peluru = pygame.transform.scale(peluruGambar, (5,5))
+hitSound = pygame.mixer.Sound("bone-crack.mp3")
 koorPlayer = [100,75]
 koorPeluru = [200, 75]
 running = True
@@ -42,7 +43,7 @@ while running:
         bullet_index = 0
         bullet[0] += 2
         # bullet[1] += koorPlayer[1] + 10
-        if bullet[0] <= 0 or bullet[0] > 600 or bullet[1] <= 0 or bullet[1] > 300:
+        if bullet[0] < 0 or bullet[0] > 600 or bullet[1] < 0 or bullet[1] > 300:
             bullets.pop(bullet_index)
         bullet_index += 1
         
@@ -80,6 +81,7 @@ while running:
             
             if detFireEnemy.colliderect(bullet_rect):
                 skor += 1
+                hitSound.play()
                 musuh.pop(indexMusuh)
                 bullets.pop(index_bullet)
             index_bullet += 1
